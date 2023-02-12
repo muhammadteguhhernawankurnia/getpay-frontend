@@ -1,91 +1,62 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from './page.module.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div className='flex flex-row'>
+        <div className='w-1/2 bg-dark'>
+          <Image
+            src='/background-auth.png'
+            alt='background-auth-img'
+            className='hidden sm:block mx-auto'
+            width={1000}
+            height={2400}
+          />
+        </div>
+        <div className='w-1/2 bg-white'>
+          <div className='flex flex-col p-16'>
+            <label className='label'>
+              <span className='label-text text-4xl font-bold'>
+                Start Accessing Banking Needs With All Devices and All Platforms
+                With 30.000+ Users
+              </span>
+            </label>
+            <label className='label'>
+              <span className='label-text text-2xl'>
+                Transfering money is eassier than ever, you can access FazzPay
+                wherever you are. Desktop, laptop, mobile phone? we cover all of
+                that for you!
+              </span>
+            </label>
+            <div className='flex flex-col'>
+              <input
+                type='email'
+                placeholder='Enter your email'
+                className='border-b-2 border-gray-300 py-2 px-3 focus:outline-none focus:border-blue-500 mt-4'
+              />
+              <input
+                type='text'
+                placeholder='Enter your password'
+                className='border-b-2 border-gray-300 py-2 px-3 focus:outline-none focus:border-blue-500 mt-4'
+              />
+            </div>
+            <p className='text-end mt-6 font-medium'>Forgot password?</p>
+            <button className='bg-base-300 text-dark text-xl font-bold w-full h-[8vh] mt-12 rounded-lg '>
+              Login
+            </button>
+            <label className='label justify-center '>
+              <div className='flex flex-row '>
+                <p className='text-dark'>Don’t have an account?</p>
+                <p className='text-info'>Let’s Sign Up</p>
+              </div>
+            </label>
+          </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </>
+  );
 }
