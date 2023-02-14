@@ -1,10 +1,13 @@
+'use client';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Header() {
+  const router = useRouter();
   return (
     <>
       <div className='navbar bg-white shadow-xl h-[15vh] w-[100vw] p-12'>
@@ -33,13 +36,24 @@ export default function Header() {
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <button
+                onClick={() => {
+                  localStorage.removeItem('@userLogin');
+                  router.push('/');
+                }}
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
 
         <div className='flex flex-col'>
-          <p>Robert Chandler</p>
+          {localStorage.getItem('@userLogin') ? (
+            <p>{JSON.parse(localStorage.getItem('@userLogin')).user.email}</p>
+          ) : (
+            <p>profile not found</p>
+          )}
           <p>+62 8139 3877 7946</p>
         </div>
 

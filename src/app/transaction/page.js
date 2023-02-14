@@ -82,6 +82,12 @@ export default function Transaction() {
                   </div>
                 </div>
               </Link>
+
+              <Link href={`/inputamount`} title='inputamount'>
+                <button className='bg-base-300 text-dark text-xl font-bold w-full h-[8vh] mt-2 rounded-lg shadow-lg hover:bg-blue-700 text-dark shadow-lg'>
+                  Next ➥
+                </button>
+              </Link>
             </div>
           </div>
         </div>

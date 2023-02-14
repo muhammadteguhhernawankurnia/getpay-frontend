@@ -1,12 +1,38 @@
+'use client';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import Header from '../components/header';
 import DashboardCard from '../components/dashboard-card';
 import Footer from '../components/footer';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Dashboard() {
+const Dashboard = (props) => {
+  const [dataUser, setDataUser] = useState([]);
+
+  useEffect(() => {
+    axios
+      // .get('http://localhost:5002/api/v1/users')
+      .get(
+        'http://localhost:5002/api/v1/users/b942d827-ca57-48b2-814d-8f578415ff1f'
+      )
+      .then((result) => {
+        // console.log('data api', result.data);
+        console.log('data api', result.data.data);
+
+        const balanceData = result.data.data.data.balance;
+        console.log(balanceData);
+
+        // setDataUser(responseAPI.data);
+      })
+      .catch((err) => {
+        console.log('error:', err);
+      });
+  }, []);
+
   return (
     <>
       <Header />
@@ -19,7 +45,11 @@ export default function Dashboard() {
             <div className='flex flex-row justify-between'>
               <div className='flex flex-col p-2'>
                 <p className='text-lg'>Balance</p>
-                <p className='text-3xl'>Rp. 120.000</p>
+                <h1 className='text-3xl'>{props.balanceData}</h1>
+                {/* <p className='text-3xl'>Rp. 120.000</p> */}
+                {/* {dataUser.map((user) => {
+                  return <p className='text-3xl' key={user_id}></p>;
+                })} */}
                 <p className='text-sm mt-2'>+62 813-9387-7946</p>
               </div>
               <div className='flex flex-col'>
@@ -118,4 +148,6 @@ export default function Dashboard() {
       <Footer />
     </>
   );
-}
+};
+
+export default Dashboard;
