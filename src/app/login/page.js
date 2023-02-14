@@ -1,9 +1,51 @@
+'use client';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Login() {
+const Login = () => {
+  const router = useRouter();
+  const [LoginForm, setLoginForm] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [validate, setValidate] = useState({ error: false, message: '' });
+  //hooks
+  // const navigate = useNavigate();
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const data = new URLSearchParams(LoginForm);
+    // alert('awkwokowko');
+    axios
+      .post('http://localhost:5002/api/v1/auth/login', data)
+      // axios.post({
+      //   url: 'http://localhost:5002/api/v1/auth/login',
+      //   method: 'POST',
+      //   data: json.stringify(LoginForm),
+      // })
+      .then((res) => {
+        console.log(res.data.data);
+        localStorage.setItem('@userLogin', JSON.stringify(res.data.data));
+        router.push('/');
+      })
+      .catch((err) => {
+        // console.log(err.response.data.message);
+        setValidate({ error: true, message: err.response.data.message });
+      });
+  };
+  //private route ketika user sudah login gak bisa balik ke form login
+  useEffect(() => {
+    if (localStorage.getItem('@userLogin')) {
+      router.push('/');
+    }
+  }, []);
+
   return (
     <>
       <div className='flex flex-row'>
@@ -31,31 +73,50 @@ export default function Login() {
                 that for you!
               </span>
             </label>
-            <div className='flex flex-col'>
-              <input
-                type='email'
-                placeholder='Enter your email'
-                className='border-b-2 border-gray-300 py-2 px-3 focus:outline-none focus:border-blue-500 mt-4'
-              />
-              <input
-                type='password'
-                placeholder='Enter your password'
-                className='border-b-2 border-gray-300 py-2 px-3 focus:outline-none focus:border-blue-500 mt-4'
-              />
-            </div>
-            <p className='text-end mt-6 font-medium'>Forgot password?</p>
-            <button className='bg-base-300 text-dark text-xl font-bold w-full h-[8vh] mt-12 rounded-lg '>
-              Login
-            </button>
-            <label className='label justify-center '>
-              <div className='flex flex-row '>
-                <p className='text-dark'>Don’t have an account?</p>
-                <p className='text-info'>Let’s Sign Up</p>
+            <form onSubmit={handleLogin} className=''>
+              <div className='flex flex-col'>
+                <input
+                  onChange={(e) =>
+                    setLoginForm({
+                      ...LoginForm,
+                      email: e.target.value,
+                    })
+                  }
+                  type='email'
+                  placeholder='Enter your email'
+                  className='border-b-2 border-gray-300 py-2 px-3 focus:outline-none focus:border-blue-500 mt-4'
+                />
+                <input
+                  onChange={(e) =>
+                    setLoginForm({
+                      ...LoginForm,
+                      password: e.target.value,
+                    })
+                  }
+                  type='password'
+                  placeholder='Enter your password'
+                  className='border-b-2 border-gray-300 py-2 px-3 focus:outline-none focus:border-blue-500 mt-4'
+                />
               </div>
-            </label>
+              <p className='text-end mt-6 font-medium'>Forgot password?</p>
+              <button
+                type='submit'
+                className='bg-base-300 text-dark text-xl font-bold w-full h-[8vh] mt-12 rounded-lg '
+              >
+                Login
+              </button>
+              <label className='label justify-center '>
+                <div className='flex flex-row '>
+                  <p className='text-dark'>Don’t have an account?</p>
+                  <p className='text-info'>Let’s Sign Up</p>
+                </div>
+              </label>
+            </form>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default Login;
