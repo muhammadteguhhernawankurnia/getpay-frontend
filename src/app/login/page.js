@@ -32,7 +32,7 @@ const Login = () => {
       .then((res) => {
         console.log(res.data.data);
         localStorage.setItem('@userLogin', JSON.stringify(res.data.data));
-        router.push('/');
+        router.push('/dashboard');
       })
       .catch((err) => {
         // console.log(err.response.data.message);
@@ -42,7 +42,7 @@ const Login = () => {
   //private route ketika user sudah login gak bisa balik ke form login
   useEffect(() => {
     if (localStorage.getItem('@userLogin')) {
-      router.push('/');
+      router.push('/dashboard');
     }
   }, []);
 
